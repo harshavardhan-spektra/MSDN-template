@@ -182,7 +182,7 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQL%20Datawarehouse%20with%20Synapse/psscript01.ps1",
+                "hhttps://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQLwarehouse/psscript01.ps1",
                 "https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/cloudlabs-windows-functions.ps1"
               ]
             },
