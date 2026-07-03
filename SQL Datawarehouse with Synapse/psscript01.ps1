@@ -7,7 +7,7 @@ Param (
     [string]$DeploymentID,
     [string]$azuserobjectid,
     [string]$InstallCloudLabsShadow,
-    [string]$AdminUsername,
+    [string]$adminUsername,
     [string]$adminPassword,
     [string]$location,
     [string]$trainerUserName,
@@ -50,8 +50,8 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
     New-Item -ItemType directory -Path C:\LabFiles -force
 
     $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/anandt1-spektra/my-templates/refs/heads/main/sqldatawarehouse/AzureCreds.txt","C:\LabFiles\AzureCreds.txt")
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/anandt1-spektra/my-templates/refs/heads/main/sqldatawarehouse/AzureCreds.ps1","C:\LabFiles\AzureCreds.ps1")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQL%20Datawarehouse%20with%20Synapse/AzureCreds.txt","C:\LabFiles\AzureCreds.txt")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQL%20Datawarehouse%20with%20Synapse/AzureCreds.ps1","C:\LabFiles\AzureCreds.ps1")
 
     (Get-Content -Path "C:\LabFiles\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzureUserNameValue", "$AzureUserName"} | Set-Content -Path "C:\LabFiles\AzureCreds.txt"
     (Get-Content -Path "C:\LabFiles\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzurePasswordValue", "$AzurePassword"} | Set-Content -Path "C:\LabFiles\AzureCreds.txt"
@@ -205,7 +205,7 @@ cd 'C:\LabFiles'
 
 Start-Sleep -Seconds 5
 
-Enable-CloudLabsEmbeddedShadow $AdminUsername $trainerUserName $trainerUserPassword
+Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
 
 
 #Enable Autologon
