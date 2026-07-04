@@ -205,7 +205,7 @@ cd 'C:\LabFiles'
 
 Start-Sleep -Seconds 5
 
-#Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
+Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
 
 
 #Enable Autologon
