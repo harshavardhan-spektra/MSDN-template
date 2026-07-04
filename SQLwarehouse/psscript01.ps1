@@ -77,26 +77,7 @@ InstallModernVmValidator
 
 
 # Enable CloudLabs Embedded Shadow Feature (trainer ↔ VM)
-Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
-
-# Update Shadow.ps1 to use query user instead of Get-ActiveSessions
-$drivepath = "C:\Users\Public\Documents"
-
-$content = Get-Content "$drivepath\Shadow.ps1" -Raw
-
-$content = $content.Replace(
-'$Session = (Get-ActiveSessions | Where UserName -EQ "demouser").Id',
-'$Session = ((query user | Select-String "' + $vmAdminUsername + '").ToString() -split ''\s+'')[3]'
-)
-
-$content = $content.Replace(
-'$SessionState = (Get-ActiveSessions | Where UserName -EQ "demouser").State',
-'$SessionState = ((query user | Select-String "' + $vmAdminUsername + '").ToString() -split ''\s+'')[4]'
-)
-
-Set-Content "$drivepath\Shadow.ps1" $content
-
-Write-Host "Successfully updated Shadow.ps1 session detection."
+Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
 
 InstallChocolatey
 
