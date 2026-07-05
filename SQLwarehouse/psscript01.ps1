@@ -207,6 +207,33 @@ Start-Sleep -Seconds 5
 
 Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
 
+Function UpdateShadowSessionDetection {
+
+    $drivepath = "C:\Users\Public\Documents"
+
+    $content = Get-Content "$drivepath\Shadow.ps1" -Raw
+
+    $old = @'
+$Session = (Get-ActiveSessions | Where UserName -EQ "demouser").Id
+$SessionState = (Get-ActiveSessions | Where UserName -EQ "demouser").State
+'@
+
+    $new = @"
+`$line = ((query user | Select-String "$vmAdminUsername").ToString()).Trim()
+`$parts = `$line -split '\s+'
+
+`$Session = `$parts[2]
+`$SessionState = `$parts[3]
+"@
+
+    $content = $content.Replace($old, $new)
+
+    Set-Content "$drivepath\Shadow.ps1" $content
+
+    Write-Host "Shadow.ps1 session detection updated successfully."
+}
+
+UpdateShadowSessionDetection
 
 #Enable Autologon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
