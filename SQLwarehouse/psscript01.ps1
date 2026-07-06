@@ -77,7 +77,7 @@ InstallModernVmValidator
 
 
 # Enable CloudLabs Embedded Shadow Feature (trainer ↔ VM)
-Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
+#Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
 
 InstallChocolatey
 
