@@ -7,7 +7,6 @@ Param (
     [string]$DeploymentID,
     [string]$azuserobjectid,
     [string]$InstallCloudLabsShadow,
-    [string]$adminUsername,
     [string]$adminPassword,
     [string]$location,
     [string]$trainerUserName,
@@ -77,8 +76,6 @@ InstallModernVmValidator
 
 
 # Enable CloudLabs Embedded Shadow Feature (trainer ↔ VM)
-
-$vmAdminUsername = $adminUsername
 
 Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
 
