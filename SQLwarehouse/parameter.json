@@ -29,9 +29,6 @@
     "AppSecret": {
       "value": "GET-SERVICEPRINCIPAL-SECRET"
     },
-    "InstallCloudLabsShadow": {
-      "value": "yes"
-    },
     "trainerUserName": {
       "value": "trainer"
     },
