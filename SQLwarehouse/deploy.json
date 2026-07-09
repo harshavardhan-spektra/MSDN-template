@@ -130,9 +130,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "MicrosoftWindowsServer",
-            "offer": "WindowsServer",
-            "sku": "2022-datacenter-g2",
+            "publisher": "microsoftvisualstudio",
+            "offer": "visualstudiowsplustools",
+            "sku": "vs-2022-ent-ws2025-datacenter-azure-gen2",
             "version": "latest"
           },
           "osDisk": {
