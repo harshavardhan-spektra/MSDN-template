@@ -26,14 +26,6 @@
         "description": "The Object Id associated with the account you used to sign into the Azure portal. Retrieve this using the Azure CLI and 'az ad signed-in-user show --query objectId -o tsv'."
       }
     },
-    "InstallCloudLabsShadow": {
-      "type": "string",
-      "defaultValue": "yes",
-      "allowedValues": [
-        "yes",
-        "no"
-      ]
-    },
     "trainerUserName": {
       "type": "string"
     },
@@ -53,7 +45,7 @@
     }
   },
   "variables": {
-    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'), ' -DeploymentID ', parameters('DeploymentID'), ' -InstallCloudLabsShadow ', parameters('InstallCloudLabsShadow'), ' -adminpassword ', parameters('adminPassword'), ' -azuserobjectid ', parameters('azuserobjectid'),  ' -AppID ', parameters('AppID'), ' -AppSecret ', parameters('AppSecret'))]",
+    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'), ' -DeploymentID ', parameters('DeploymentID'), ' -adminpassword ', parameters('adminPassword'), ' -azuserobjectid ', parameters('azuserobjectid'),  ' -AppID ', parameters('AppID'), ' -AppSecret ', parameters('AppSecret'))]",
     "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
