@@ -73,7 +73,7 @@
   "resources": [
     {
       "type": "Microsoft.Network/virtualNetworks",
-      "apiVersion": "2024-05-01",
+      "apiVersion": "2017-04-01",
       "name": "[variables('virtualNetworkName')]",
       "location": "[variables('location')]",
       "properties": {
@@ -93,9 +93,9 @@
         "dhcpOptions": "[variables('dhcpOptions')]"
       }
     },
-    {
+   	{
       "type": "Microsoft.Network/publicIpAddresses",
-      "apiVersion": "2024-05-01",
+      "apiVersion": "2017-08-01",
       "name": "[variables('publicIpAddressName')]",
       "location": "[variables('location')]",
       "sku": {
@@ -110,7 +110,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2024-11-01",
+      "apiVersion": "2017-03-30",
       "name": "[variables('vmName')]",
       "location": "[variables('location')]",
       "dependsOn": [
@@ -130,9 +130,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "MicrosoftWindowsServer",
-            "offer": "WindowsServer",
-            "sku": "2025-datacenter-azure-edition",
+            "publisher": "Spektra",
+            "offer": "cloudlabs-windows-jumpvm",
+            "sku": "win2019",
             "version": "latest"
           },
           "osDisk": {
@@ -143,6 +143,7 @@
             }
           },
           "dataDisks": [
+
           ]
         },
         "networkProfile": {
@@ -157,7 +158,7 @@
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "name": "[concat(variables('vmName'),'/', 'winExtension')]",
-          "apiVersion": "2024-11-01",
+          "apiVersion": "2015-06-15",
           "location": "[resourceGroup().location]",
           "comments": "Script",
           "tags": {
@@ -173,12 +174,12 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQLwarehouse/psscript01.ps1",
+                "https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/psscript.ps1",
                 "https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/cloudlabs-windows-functions.ps1"
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Bypass -File psscript01.ps1 ', variables('cloudlabsCommon'), variables('Enable-CloudLabsEmbeddedShadow'))]"
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Bypass -File synapse-tech-immersion/test-template/psscript.ps1 ', variables('cloudlabsCommon'), variables('Enable-CloudLabsEmbeddedShadow'))]"
             }
           }
         }
@@ -186,7 +187,7 @@
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2024-05-01",
+      "apiVersion": "2017-06-01",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[variables('location')]",
       "properties": {
@@ -209,7 +210,7 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2024-05-01",
+      "apiVersion": "2016-09-01",
       "name": "[variables('networkInterfaceName')]",
       "location": "[variables('location')]",
       "dependsOn": [
