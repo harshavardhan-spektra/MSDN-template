@@ -32,21 +32,21 @@
     "trainerUserPassword": {
       "type": "string"
     },
-	    "AppID": {
-        "type": "string"
+    "AppID": {
+      "type": "string"
     },
-      "AppSecret": {
-        "type": "securestring"
+    "AppSecret": {
+      "type": "securestring"
     },
-      "emailId": {
+    "emailId": {
       "type": "string",
       "defaultValue": " ",
       "metadata": "This will get the User Email ID who will be launching the lab from the parameter file using GET-USER-EMAIL-ID"
     }
   },
   "variables": {
-    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'), ' -DeploymentID ', parameters('DeploymentID'), ' -adminpassword ', parameters('adminPassword'), ' -azuserobjectid ', parameters('azuserobjectid'),  ' -AppID ', parameters('AppID'), ' -AppSecret ', parameters('AppSecret'))]",
-    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
+    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'))]",
+    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'), ' -AppID ', parameters('AppID'), ' -AppSecret ', parameters('AppSecret'), ' -azuserobjectid ', parameters('azuserobjectid'))]",
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "rgName": "[resourceGroup().name]",
@@ -73,7 +73,7 @@
   "resources": [
     {
       "type": "Microsoft.Network/virtualNetworks",
-      "apiVersion": "2017-04-01",
+      "apiVersion": "2024-11-01",
       "name": "[variables('virtualNetworkName')]",
       "location": "[variables('location')]",
       "properties": {
@@ -93,9 +93,9 @@
         "dhcpOptions": "[variables('dhcpOptions')]"
       }
     },
-   	{
+    {
       "type": "Microsoft.Network/publicIpAddresses",
-      "apiVersion": "2017-08-01",
+      "apiVersion": "2024-11-01",
       "name": "[variables('publicIpAddressName')]",
       "location": "[variables('location')]",
       "sku": {
@@ -110,7 +110,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2017-03-30",
+      "apiVersion": "2024-11-01",
       "name": "[variables('vmName')]",
       "location": "[variables('location')]",
       "dependsOn": [
@@ -143,7 +143,6 @@
             }
           },
           "dataDisks": [
-
           ]
         },
         "networkProfile": {
@@ -158,7 +157,7 @@
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "name": "[concat(variables('vmName'),'/', 'winExtension')]",
-          "apiVersion": "2015-06-15",
+          "apiVersion": "2024-11-01",
           "location": "[resourceGroup().location]",
           "comments": "Script",
           "tags": {
@@ -187,7 +186,7 @@
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2017-06-01",
+      "apiVersion": "2024-11-01",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[variables('location')]",
       "properties": {
@@ -210,7 +209,7 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2016-09-01",
+      "apiVersion": "2024-11-01",
       "name": "[variables('networkInterfaceName')]",
       "location": "[variables('location')]",
       "dependsOn": [
@@ -254,7 +253,7 @@
     },
     "Trainer Username": {
       "type": "String",
-       "value": "[parameters('trainerUserName')]"
+      "value": "[parameters('trainerUserName')]"
     },
     "LABVM Admin Username": {
       "type": "String",
