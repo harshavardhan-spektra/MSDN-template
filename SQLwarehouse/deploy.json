@@ -179,7 +179,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Bypass -File synapse-tech-immersion/test-template/psscript.ps1 ', variables('cloudlabsCommon'), variables('Enable-CloudLabsEmbeddedShadow'))]"
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Bypass -File psscript01.ps1 ', variables('cloudlabsCommon'), variables('Enable-CloudLabsEmbeddedShadow'))]"
             }
           }
         }
