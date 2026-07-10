@@ -129,7 +129,6 @@
           "vmSize": "[variables('virtualMachineSize')]"
         },
         "storageProfile": {
-        "storageProfile": {
           "imageReference": {
             "publisher": "MicrosoftWindowsServer",
             "offer": "WindowsServer",
