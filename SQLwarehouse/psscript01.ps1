@@ -15,6 +15,10 @@ Param (
     [string]$AppSecret
 )
 
+# Basic parsing of UPN (kept in case you need tenant name later)
+$Inputstring = $AzureUserName
+$CharArray   = $InputString.Split("@")
+
 Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -Append
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 Write-Output "TLS setting: $([Net.ServicePointManager]::SecurityProtocol)"
