@@ -174,7 +174,7 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/psscript.ps1",
+                "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQLwarehouse/psscript01.ps1",
                 "https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/cloudlabs-windows-functions.ps1"
               ]
             },
