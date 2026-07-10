@@ -110,7 +110,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2017-03-30",
+      "apiVersion": "2024-11-01",
       "name": "[variables('vmName')]",
       "location": "[variables('location')]",
       "dependsOn": [
@@ -129,10 +129,11 @@
           "vmSize": "[variables('virtualMachineSize')]"
         },
         "storageProfile": {
+        "storageProfile": {
           "imageReference": {
-            "publisher": "Spektra",
-            "offer": "cloudlabs-windows-jumpvm",
-            "sku": "win2019",
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2022-datacenter-g2",
             "version": "latest"
           },
           "osDisk": {
