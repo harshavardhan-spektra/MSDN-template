@@ -45,8 +45,8 @@
     }
   },
   "variables": {
-    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'))]",
-    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'), ' -AppID ', parameters('AppID'), ' -AppSecret ', parameters('AppSecret'), ' -azuserobjectid ', parameters('azuserobjectid'))]",
+    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID[...]
+    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainer[...]
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "rgName": "[resourceGroup().name]",
@@ -73,7 +73,7 @@
   "resources": [
     {
       "type": "Microsoft.Network/virtualNetworks",
-      "apiVersion": "2024-11-01",
+      "apiVersion": "2017-04-01",
       "name": "[variables('virtualNetworkName')]",
       "location": "[variables('location')]",
       "properties": {
@@ -95,7 +95,7 @@
     },
     {
       "type": "Microsoft.Network/publicIpAddresses",
-      "apiVersion": "2024-11-01",
+      "apiVersion": "2017-08-01",
       "name": "[variables('publicIpAddressName')]",
       "location": "[variables('location')]",
       "sku": {
@@ -110,7 +110,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2024-11-01",
+      "apiVersion": "2017-03-30",
       "name": "[variables('vmName')]",
       "location": "[variables('location')]",
       "dependsOn": [
@@ -157,7 +157,7 @@
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "name": "[concat(variables('vmName'),'/', 'winExtension')]",
-          "apiVersion": "2024-11-01",
+          "apiVersion": "2015-06-15",
           "location": "[resourceGroup().location]",
           "comments": "Script",
           "tags": {
@@ -186,7 +186,7 @@
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2024-11-01",
+      "apiVersion": "2017-06-01",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[variables('location')]",
       "properties": {
@@ -209,7 +209,7 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2024-11-01",
+      "apiVersion": "2016-09-01",
       "name": "[variables('networkInterfaceName')]",
       "location": "[variables('location')]",
       "dependsOn": [
