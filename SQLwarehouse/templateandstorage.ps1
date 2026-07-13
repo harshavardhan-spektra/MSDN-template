@@ -107,68 +107,6 @@ if(-not $blobstorageName)
     exit 1
 }
 
-# SECOND STORAGE ACCOUNT COPY
-
-$storage = Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $blobstorageName.Name
-$storageContext = $storage.Context
-
-$rgLocation = $resourceGroup.Location
-Write-Host "Resource group: $resourceGroupName in $rgLocation"
-
-# Select correct source SAS URL based on region
-$rgLocationLower = $rgLocation.ToLower()
-
-switch -Wildcard ($rgLocationLower) {
-    "westus2" {
-        $srcUrl = "https://synapsetiwestus2.blob.core.windows.net/?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-10-15T16:53:08Z&st=2025-10-15T08:38:08Z&spr=https&sig=nCQ9y%2F3rfW52Rg0ljW3I8KlwYtDMfr2t8YM%2Boy6rXjo%3D"
-    }
-    "westeurope" {
-        $srcUrl = "https://synapsetiwesteurope.blob.core.windows.net/?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-10-15T00:11:19Z&st=2025-10-14T15:56:19Z&spr=https&sig=tDIbmp4oSdmfgPHaVMwDpd%2BCbG1flYII%2BhDmPu5vC4U%3D"
-    }
-    "eastus" {
-        $srcUrl = "https://synapsetieastus.blob.core.windows.net/?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-10-15T16:56:31Z&st=2025-10-15T08:41:31Z&spr=https&sig=r9eutsi%2FypI1%2F%2FgHk1wP%2B7f36HuOkOqJ6ro3W%2FlS5Qg%3D"
-    }
-    "southeastasia" {
-        $srcUrl = "https://synapsetiblobseastasia.blob.core.windows.net/?sv=2022-11-02&ss=b&srt=sco&sp=rwdlaciyx&se=2025-07-22T19:32:26Z&st=2024-07-22T11:32:26Z&spr=https&sig=VPffOlYtYci%2BwENNOzlqqi7olNrsEGWc0WgRn2AQLqo%3D"
-    }
-    default {
-        $srcUrl = "https://synapsetiblobnortheurope.blob.core.windows.net/?sv=2022-11-02&ss=b&srt=sco&sp=rwdlaciyx&se=2025-07-22T19:33:19Z&st=2024-07-22T11:33:19Z&spr=https&sig=7mo2dy38jfnwCsSXM7mKr5zmgJjIlTP8m27roZDyRIU%3D"
-    }
-}
-
-# (Optional) Ensure container exists (keep if you want "models")
-$containerName = "models"
-New-AzStorageContainer -Context $storageContext -Name $containerName -ErrorAction Ignore
-
-# Generate SAS and run AzCopy (same as first)
-Write-Host "Generating SAS token for second storage account..."
-
-$expiry = (Get-Date).AddDays(2)
-$destSASToken = New-AzStorageAccountSASToken `
-    -Service Blob `
-    -ResourceType Service,Container,Object `
-    -Permission "rwdlac" `
-    -StartTime (Get-Date).AddMinutes(-5) `
-    -ExpiryTime $expiry `
-    -Context $storageContext
-
-$destUrl = "$($storage.Context.BlobEndPoint)?$destSASToken"
-
-Write-Host "`nSource URL:"
-Write-Host $srcUrl
-Write-Host "`nDestination URL:"
-Write-Host $destUrl
-
-Write-Host "`nRunning AzCopy for second storage account..."
-& "C:\LabFiles\azcopy.exe" copy $srcUrl $destUrl --recursive=true
-
-$azcopyExitCode = $LASTEXITCODE
-if ($azcopyExitCode -eq 0) {
-    Write-Host "AzCopy (second storage account) completed successfully."
-} else {
-    Write-Warning "AzCopy (second storage account) failed with exit code $azcopyExitCode"
-}
-
 . C:\LabFiles\datastore.ps1
 
 # Assign Synapse Roles
