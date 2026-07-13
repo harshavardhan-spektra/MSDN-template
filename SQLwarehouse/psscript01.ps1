@@ -167,7 +167,7 @@ $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates
 $LabFilesDirectory = "C:\LabFiles"
 
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/templateandstorage.ps1","C:\LabFiles\templateandstorage.ps1")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQLwarehouse/templateandstorage.ps1","C:\LabFiles\templateandstorage.ps1")
 
 $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/scripts/automation.bat","C:\LabFiles\automation.bat")
 $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/scripts/export.bat","C:\LabFiles\export.bat")
