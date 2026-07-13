@@ -194,7 +194,7 @@ if (!(Test-Path $fileToCheck -PathType Leaf)) {
     Start-Process -FilePath $batPath -WindowStyle Hidden
 }
 
-Start-Sleep -Seconds 1500
+Start-Sleep -Seconds 1800
 
 Write-Host "automation.bat phase completed. Continuing script..."
 
