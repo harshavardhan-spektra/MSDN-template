@@ -152,7 +152,7 @@ $destSASToken = New-AzStorageAccountSASToken `
     -ExpiryTime $expiry `
     -Context $storageContext
 
-$destUrl = "$($storage.Context.BlobEndPoint)$destSASToken"
+$destUrl = "$($storage.Context.BlobEndPoint)?$destSASToken"
 
 Write-Host "`nSource URL:"
 Write-Host $srcUrl
