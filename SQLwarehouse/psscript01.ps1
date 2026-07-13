@@ -6,13 +6,11 @@ Param (
     [string]$ODLID,
     [string]$DeploymentID,
     [string]$azuserobjectid,
-    [string]$InstallCloudLabsShadow,
     [string]$adminUsername,
     [string]$adminPassword,
     [string]$location,
     [string]$trainerUserName,
     [string]$trainerUserPassword,
-    [string]$vmAdminUsername,
     [string]$AppID,
     [string]$AppSecret
 )
@@ -92,7 +90,7 @@ InstallModernVmValidator
 
 
 # Enable CloudLabs Embedded Shadow Feature (trainer ↔ VM)
-Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
+#Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
 
 InstallChocolatey
 
