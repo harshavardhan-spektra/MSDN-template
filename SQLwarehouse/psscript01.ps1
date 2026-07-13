@@ -6,6 +6,8 @@ Param (
     [string]$ODLID,
     [string]$DeploymentID,
     [string]$azuserobjectid,
+    [string]$InstallCloudLabsShadow,
+    [string]$adminUsername,
     [string]$adminPassword,
     [string]$location,
     [string]$trainerUserName,
@@ -22,21 +24,6 @@ $CharArray   = $InputString.Split("@")
 Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -Append
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 Write-Output "TLS setting: $([Net.ServicePointManager]::SecurityProtocol)"
-
-# Install required Azure PowerShell modules BEFORE using any Az.* cmdlets
-Write-Output "Installing Azure PowerShell modules..."
-try {
-    Install-PackageProvider -Name NuGet -Force -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
-    Install-Module -Name Az.Accounts -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
-    Install-Module -Name Az.Resources -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
-    Install-Module -Name Az.Storage -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
-    Install-Module -Name Az.Synapse -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
-    Write-Output "Azure PowerShell modules installed successfully."
-} catch {
-    Write-Error "Failed to install Azure modules: $_"
-    Stop-Transcript
-    exit 1
-}
 
 # Expose SP and object id as machine env vars (CloudLabs convention)
 [System.Environment]::SetEnvironmentVariable('AppID', $AppID, [System.EnvironmentVariableTarget]::Machine)
@@ -56,6 +43,7 @@ CloudlabsManualAgent Install
 
 # Run Imported functions from cloudlabs-windows-functions.ps1
 WindowsServerCommon
+InstallCloudLabsShadow $ODLID $InstallCloudLabsShadow
 
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $AppID, $AppSecret)
 {
@@ -87,7 +75,8 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
 CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID $AppID $AppSecret
 InstallModernVmValidator
 
-# Enable CloudLabs Embedded Shadow Feature (trainer – VM)
+
+# Enable CloudLabs Embedded Shadow Feature (trainer ↔ VM)
 Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
 
 InstallChocolatey
@@ -200,7 +189,7 @@ $wclient.DownloadFile($url, $output)
 (Get-Content -Path "c:\LabFiles\parameters.json") | ForEach-Object {$_ -Replace "GET-AZUSER-OBJECTID", "$azuserobjectid"} | Set-Content -Path "c:\LabFiles\parameters.json"
 
 Write-Host "Starting main deployment." -ForegroundColor Green -Verbose
-New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateUri "https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/deploy-synapse.json" -TemplateParameterFile "c:\LabFiles\parameters.json" -Verbose
+New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateUri "https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/deploy-synapse.json" -TemplateParameterFile "c:\LabFiles\parameters.json"
 
 
 #Download setup script
@@ -216,6 +205,9 @@ cd 'C:\LabFiles'
 
 Start-Sleep -Seconds 5
 
+Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
+
+
 #Enable Autologon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String 
@@ -228,7 +220,7 @@ $status = (Get-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -
 $status
 if ($status -eq "Succeeded")
 {
- 
+
     $Validstatus="Pending"  ##Failed or Successful at the last step
     $Validmessage="Main Deployment is successful, logontask is pending"
 
