@@ -6,7 +6,6 @@ Param (
     [string]$ODLID,
     [string]$DeploymentID,
     [string]$azuserobjectid,
-    [string]$adminUsername,
     [string]$adminPassword,
     [string]$location,
     [string]$trainerUserName,
@@ -57,7 +56,6 @@ CloudlabsManualAgent Install
 
 # Run Imported functions from cloudlabs-windows-functions.ps1
 WindowsServerCommon
-#InstallCloudLabsShadow $ODLID $InstallCloudLabsShadow
 
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $AppID, $AppSecret)
 {
@@ -88,7 +86,6 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
 
 CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID $AppID $AppSecret
 InstallModernVmValidator
-
 
 # Enable CloudLabs Embedded Shadow Feature (trainer ↔ VM)
 Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
@@ -162,7 +159,6 @@ $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates
 $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/datastore.ps1","C:\LabFiles\datastore.ps1")
 
-
 $LabFilesDirectory = "C:\LabFiles"
 
 $WebClient = New-Object System.Net.WebClient
@@ -218,9 +214,6 @@ cd 'C:\LabFiles'
 ./01-environment-setup.ps1
 
 Start-Sleep -Seconds 5
-
-#Enable-CloudLabsEmbeddedShadow $adminUsername $trainerUserName $trainerUserPassword
-
 
 #Enable Autologon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
