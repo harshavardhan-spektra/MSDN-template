@@ -25,6 +25,21 @@ Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 Write-Output "TLS setting: $([Net.ServicePointManager]::SecurityProtocol)"
 
+# Install required Azure PowerShell modules BEFORE using any Az.* cmdlets
+Write-Output "Installing Azure PowerShell modules..."
+try {
+    Install-PackageProvider -Name NuGet -Force -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
+    Install-Module -Name Az.Accounts -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
+    Install-Module -Name Az.Resources -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
+    Install-Module -Name Az.Storage -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
+    Install-Module -Name Az.Synapse -Force -Repository PSGallery -ErrorAction Stop -AllowClobber -WarningAction SilentlyContinue | Out-Null
+    Write-Output "Azure PowerShell modules installed successfully."
+} catch {
+    Write-Error "Failed to install Azure modules: $_"
+    Stop-Transcript
+    exit 1
+}
+
 # Expose SP and object id as machine env vars (CloudLabs convention)
 [System.Environment]::SetEnvironmentVariable('AppID', $AppID, [System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('AppSecret', $AppSecret, [System.EnvironmentVariableTarget]::Machine)
