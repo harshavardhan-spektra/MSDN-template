@@ -151,7 +151,7 @@ Write-Host "Resource group name does not match Synapse-AIAD"
 }
 
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/SQLwarehouse/validate.ps1","C:\LabFiles\validate.ps1")
+$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/validate.ps1","C:\LabFiles\validate.ps1")
 
 $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/synapse-tech-immersion/test-template/validationscript.psm1","C:\LabFiles\validationscript.psm1")
