@@ -87,11 +87,11 @@
         "settings": {
           "fileUris": [
             "https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/cloudlabs-windows-functions.ps1",
-            "https://experienceazure.blob.core.windows.net/templates/azure-aI-agents/scripts/psscript-01.ps1"
+            "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/psscript.ps1"
           ]
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File azure-aI-agents/scripts/psscript-01.ps1', variables('cloudlabsCommon'),variables('Enable-CloudLabsEmbeddedShadow'))]"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File Agent-memory-lab/psscript-01.ps1', variables('cloudlabsCommon'),variables('Enable-CloudLabsEmbeddedShadow'))]"
         }
       }
     },
