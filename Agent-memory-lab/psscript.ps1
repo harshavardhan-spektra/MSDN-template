@@ -71,19 +71,9 @@ choco install python311 -y -force
 #Install git
 choco install git -y
 
-#Remove any existing installation of the ml extension and also the CLI v1 azure-cli-ml extension:
-
-#az extension remove -n azure-cli-ml
-#az extension remove -n ml
-
-#install the ml extension:
-az extension add -n ml
-az ml -h
-az extension update -n ml
-
 #Download LogonTask
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/azure-aI-agents/scripts/logontask.ps1","C:\LabFiles\logontask-01.ps1")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/logon.ps1","C:\LabFiles\logon.ps1")
 
 #Enable Auto-Logon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
@@ -91,6 +81,18 @@ Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type
 Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:ComputerName)\demouser" -type String
 Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value $adminPassword -type String
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
+
+# Scheduled Task
+$Trigger= New-ScheduledTaskTrigger -AtLogOn
+$User= "$($env:ComputerName)\demouser"
+$Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File C:\LabFiles\logon.ps1"
+Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force
+Set-ExecutionPolicy -ExecutionPolicy bypass -Force
+$Validstatus="Pending"
+$Validmessage="Post Deployment is Pending"
+
+#Set the final deployment status
+CloudlabsManualAgent setStatus
 
 Stop-Transcript
 Restart-Computer -Force
