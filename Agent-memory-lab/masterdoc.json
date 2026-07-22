@@ -8,11 +8,11 @@
         "Order": 1
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/Exercise-01.md",
+        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/exercise-1-environment-setup-local-memory.md",
         "Order": 2
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/Exercise-02.md",
+        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/exercise-2-agent-framework-integration.md",
         "Order": 3
       },
       {
