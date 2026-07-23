@@ -16,11 +16,11 @@
         "Order": 3
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/Exercise-03.md",
+        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/exercise-3-azure-cosmosdb-backend.md",
         "Order": 4
       },
        {
-        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/Exercise-04.md",
+        "RawFilePath": "https://raw.githubusercontent.com/harshavardhan-spektra/MSDN-template/refs/heads/main/Agent-memory-lab/exercise-4-bounded-longterm-memory-insight-curation.md",
         "Order": 5
       },
       {
