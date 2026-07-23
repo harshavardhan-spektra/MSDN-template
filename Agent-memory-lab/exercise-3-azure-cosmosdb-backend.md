@@ -64,10 +64,6 @@ You used `sqlite` in Exercises 1 and 2. In this exercise you switch to `cosmosdb
 
 ### Steps
 
-1. On the Desktop of your Lab VM, launch **Visual Studio Code**, and open the **agent-memory** project folder if it is not already open.
-
-1. Click on the ellipsis **(...) (1)** in the top menu, then select **Terminal (2)** and click **New Terminal (3)**.
-
 1. In the Explorer pane, click on the **.env** file in the project root to open it.
 
 1. Confirm the following **Azure OpenAI** variables are present and populated (you configured these in Exercise 1):

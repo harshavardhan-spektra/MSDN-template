@@ -31,8 +31,6 @@ In this exercise, you will perform:
 
 In this task, you will open the Agent Framework notebook and inspect how `AgentMemory` is registered as a context provider inside the Agent Framework, identifying the lifecycle hooks that make memory automatic.
 
-1. On the Desktop of your Lab VM, launch **Visual Studio Code**, and open the **agent-memory** project folder if it is not already open.
-
 1. In the Explorer pane, navigate to the **demo** folder and open the **02_agent_framework_condensed.ipynb** notebook.
 
 1. Take a moment to read the first markdown cell, **"Agent Framework + AgentMemory Integration"**. It introduces the three key concepts you will observe in this exercise:
@@ -67,16 +65,6 @@ In this task, you will open the Agent Framework notebook and inspect how `AgentM
 ## Task 2.2: Run the Financial Advisor Demo
 
 In this task, you will execute the Agent Framework notebook and observe how memory from one session automatically influences later sessions, with no manual memory calls anywhere in the conversation code.
-
-1. If you have not already installed the development dependencies in this environment, run the following command from the repository root:
-
-   ```
-   uv sync --extra dev
-   ```
-
-1. Review your `.env` file and confirm that the Azure OpenAI settings expected by the demos are present.
-
-   > **Important:** This exercise assumes the lab bootstrap prepared the `.env` file or equivalent environment variables required by the repo. If the notebook fails immediately with missing configuration, pause and verify the Azure OpenAI values prepared for the lab environment before proceeding.
 
 1. In the **02_agent_framework_condensed.ipynb** notebook, click **Select Kernel** in the top-right corner and select the project's virtual environment, for example **.venv (Python 3.12.x)**.
 

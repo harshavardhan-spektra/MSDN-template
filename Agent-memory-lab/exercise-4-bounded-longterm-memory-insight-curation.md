@@ -54,8 +54,6 @@ The result is a memory system that behaves like human long-term memory: frequent
 
 ### Steps
 
-1. On the Desktop of your Lab VM, launch **Visual Studio Code**, and open the **agent-memory** project folder if it is not already open.
-
 1. In the Explorer pane, navigate to the **demo** folder and open the **08_itemized_insights.ipynb** notebook.
 
 1. Read the first markdown cell, **"Long-Term Memory Prioritization Demo (SQLite)"**. Confirm it lists the same four concepts described above: **Recency**, **Frequency**, **Forgetting**, and **Bounded Capacity**.
